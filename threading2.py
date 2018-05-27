@@ -5,10 +5,13 @@ import json
 
 url_list = []
 mes_list = []
-def Craw_movie(url):
+def Craw_movie():
+    ind = 0
     for i in url_list:
-        scr.insert(END, mes_list[i] + "电影前20推荐如下： \n")
-        html = requests.get().text  # 这里一般先打印一下html内容，看看是否有内容再继续。
+        print ("link   " + i)
+        scr.insert(END, mes_list[ind] + " 推荐的前20名电影如下 ： \n")
+        ind += 1
+        html = requests.get(i).text  # 这里一般先打印一下html内容，看看是否有内容再继续。
         # print (html)
         movie = json.loads(html)
         result = []
@@ -25,7 +28,7 @@ def Craw_movie(url):
                 # for i in  result:
                 #    print (i)i
                 #    print ("\n")
-                scr.insert(END,  + '\n')
+                scr.insert(END,film['title'] + " " + film['rate'] + " " + film['url'] + '\n')
         scr.insert(END, "======================================================================= \n\n\n\n")
 
 def MyEvent1():
@@ -52,8 +55,13 @@ def MyEvent4():
     mes_list.append('日本')
 
 def cls():
+    mes_list = []
+    url_list = []
     scr.delete(0.0, END)
 
+#list1=["hhh","aaa"]
+#str = list1[1]
+#print(str)
 top=Tk()
 top.wm_title("多线程爬虫 + GUI")
 top.geometry("600x500+300+200")
